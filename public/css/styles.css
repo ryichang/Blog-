@@ -1,0 +1,60 @@
+
+
+
+body {
+  color: #333;
+  font-family: 'Futura', serif;
+  background-position: center;
+  background-attachment: fixed;
+
+   /* Sanity Check! */
+}
+
+#headerTitle {
+    margin-top: 100px;
+    text-align: center;
+    color: white; 
+    font-family: 'Merriweather:900italic', serif;
+    text-transform: uppercase;
+    font-size: 70px;
+    line-height: 44px;
+    letter-spacing: .02em;
+    color: white;
+    text-transform: inherit;
+    display: inline-block;
+    margin-bottom: 11px;
+}
+
+h2 {
+  margin-top: 5px;
+  
+  color: white; 
+  font-size: 16px;
+}
+
+#posts {
+  font-family: Georgia, Times, "Times New Roman", serif;
+
+
+
+  /*font-family: 'Merriweather', serif;*/
+}
+
+
+
+
+video#bgvid { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(http://c.fastcompany.net/multisite_files/fastcompany/imagecache/inline-large/inline/2015/10/3051856-inline-1-this-ferrofluid-alarm-clock-gets-back-to-basics.gif) no-repeat;
+    background-size: cover; 
+}
+
