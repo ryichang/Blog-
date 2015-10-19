@@ -1,37 +1,99 @@
-//CLIENT-SIDE JAVASCRIPT
-//On page load
-
-console.log("Sanity Check: JS is working!");
-
+// CLIENT-SIDE JAVASCRIPT
+// On page load
 $(document).ready(function(){
+  pageLoad();
+});
 
-  // code in here
-  //set up variable for count
-  var count = 0;
+// function definitions
 
-  $('#newPost').on('submit', function(e){ 
-    e.preventDefault(); 
-
-    console.log(this); //the form
-    var formData = $(this).serialize(); 
-    console.log(formData); 
-
-    $.ajax({ 
-        url: '/posts', 
-        type: "POST",
-        data: formData
-    })
-    .done(function(data) { 
-        console.log("made a post successfully:", data);
-         //Object {__v: 0, name: "asdf", _id: "56214316bbacebd50f31
-         var postHtml = "<li class='post list-group-item'>" + data.post + "<span data-id='" + data._id + "' class='glyphicon glyphicon-remove pull-right'></span></li>";
-          $('.posts').append(postHtml);
-          $('#newPost')[0].reset(); 
-    })
-    .fail(function(data) {
-          console.log("Failed to make a post!");
-        });
+function pageLoad() {
+  // set event listeners
+  $("#new-post-form").on("submit", function(e){
+    // prevent form submission
+    e.preventDefault();
+    // post serialized form to server
+    console.log($(this).serialize());
+    $.post("/api/posts", $(this).serialize(), function(response){
+      // append new post to the page
+      console.log('response: ', response);
+      var newPost = response;
+      // clear new post form
+      var postString = makeHTMLString(newPost);
+      console.log('postString: ', postString);
+      $("#post-ul").prepend(postString);
+      // reset the form 
+      $("#new-post-form")[0].reset();
+      // give focus back to the post text input
+      $("#post-text-input").focus();
+    });
   });
+
+  // set event listener for all delete buttons
+  $(document).on('click', 'button.close', function(e){
+    deletePost(this);
+  });
+}
+
+function deletePost(context) {
+  console.log('context in deletePost: ', context);
+  // context is the button that was clicked
+  var postId = $(context).data().id;
+  $.ajax({
+    url: '/api/posts/' + postId,
+    type: 'DELETE',
+    success: function(response) {
+      // once successful, remove food from the DOM
+      $(context).closest('li').remove();
+    }
+  });
+}
+
+
+function makeHTMLString(post){
+  return '<li class="list-group-item"><h4 class="list-group-item-heading">' + post.text +
+  '<button data-id='+ post.id + ' type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+  '</li>';
+}
+
+
+
+  // function deleteText(context) {
+  //   console.log('context in deleteText: ', context);
+  //   //context is the button that was clicked
+  //   var textId = $(context).data().id; 
+  //   $.ajax({
+  //     url: '/api/posts' + postId, 
+  //     type: 'DELETE',
+  //     success: function(response) {
+  //       //once successful, remove post from the DOM
+  //       $(context).closest('li').remove();
+  //     }
+  //   });
+  // }
+  // $('#newPost').on('submit', function(e){ 
+  //   e.preventDefault(); 
+
+  //   console.log(this); //the form
+  //   var formData = $(this).serialize(); 
+  //   console.log(formData); 
+
+  //   $.ajax({ 
+  //       url: '/posts', 
+  //       type: "POST",
+  //       data: formData
+  //   })
+  //   .done(function(data) { 
+  //       console.log("made a post successfully:", data);
+  //        //Object {__v: 0, name: "asdf", _id: "56214316bbacebd50f31
+  //        var postHtml = "<li class='post list-group-item'>" + data.post + "<span data-id='" + data._id + "' class='glyphicon glyphicon-remove pull-right'></span></li>";
+  //         $('.posts').append(postHtml);
+  //         $('#newPost')[0].reset(); 
+  //   })
+  //   .fail(function(data) {
+  //         console.log("Failed to make a post!");
+  //       });
+  
+
 
 
 
@@ -90,4 +152,4 @@ $(document).ready(function(){
   
 
 
-});
+
