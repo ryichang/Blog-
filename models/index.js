@@ -9,3 +9,4 @@ db.once('open', function (callback) {
 });
 
 module.exports.Post = require('./post.js');
+module.exports.Comment = require('./comment.js');

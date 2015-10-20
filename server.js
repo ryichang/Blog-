@@ -49,15 +49,24 @@ app.post("/api/posts", function (req, res){
     // process.exit();
 });
 
+  // if (posts.length !== 0) {
+  //   newPost._id = posts [posts.length - 1]._id + 1;
+  // } else {
+  //   newPost._id = 0;
+  // }
+  // posts.push(newPost);
+  // res.json(newPost);
+  
+
 app.delete("/api/posts/:id", function (req,res) {
   var targetId = req.params.id;
 
   console.log(targetId);
 
-  db.Post.findOneAndRemove({_id:targetId}, function(err, deletedFood){
+  db.Post.findOneAndRemove({_id:targetId}, function(err, deletedPost){
     if (err) { return console.log("delete error: " + err); }
-    console.log(deletedFood + " removed");
-    res.send(deletedFood);
+    console.log(deletedPost + " removed");
+    res.send(deletedPost);
    });
 });
 

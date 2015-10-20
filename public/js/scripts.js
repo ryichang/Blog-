@@ -28,13 +28,18 @@ function pageLoad() {
     });
   });
 
+
   // set event listener for all delete buttons
   $(document).on('click', 'button.close', function(e){
+    e.preventDefault();
+
     deletePost(this);
+
   });
 }
 
 function deletePost(context) {
+
   console.log('context in deletePost: ', context);
   // context is the button that was clicked
   var postId = $(context).data().id;
@@ -45,13 +50,51 @@ function deletePost(context) {
       // once successful, remove food from the DOM
       $(context).closest('li').remove();
     }
+
   });
+
+
+
+
 }
+// $('.posts').on('click', '.close', function(e) {
+//     e.preventDefault();
+//     var postId = $(this).data().id;
+//     var deletedPost = $(this).closest('li');
+
+//     $.ajax({
+//       url:'/posts/' + postId,
+//       type: "DELETE"
+//     })
+//     .done(function(data) {
+//       console.log(data);
+//       $(deletedPost).remove();
+//       console.log("post has been deleted");
+//     })
+//     .fail(function(data) {
+//       console.log("failed to delete post");
+
+//     });
+// });
+
+// function deletePost(context) {
+//   console.log('context in deletePost: ', context);
+//   // context is the button that was clicked
+//   var postId = $(context).data().id;
+//   $.ajax({
+//     url: '/api/posts/' + postId,
+//     type: 'DELETE',
+//     success: function(response) {
+//       // once successful, remove food from the DOM
+//       $(context).closest('li').remove();
+//     }
+//   });
+// }
 
 
 function makeHTMLString(post){
   return '<li class="list-group-item"><h4 class="list-group-item-heading">' + post.text +
-  '<button data-id='+ post.id + ' type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+  '<button data-id='+ post._id + ' type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
   '</li>';
 }
 

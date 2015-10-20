@@ -41,19 +41,13 @@
               <ul class="list-group" id="post-ul">
               <% for (var i=0; i<posts.length; i++) { %>
               <li class="list-group-item">
-                <h2 class="list-group-item-heading"><%= posts[i].text %></h2>
-                    <button data-id="<%=posts[i].id %>" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                <h4 class="list-group-item-heading"><%= posts[i].text %></h4>
+                    <button data-id="<%=posts[i].id %>" type='button' class='close' aria-label='Close'><span aria-hidden='true'></span></button>
               <% } %>
 
               <!-- action new post -->
-                <div class="form-group">
-                  <input class="form-control" type="text" name="post" id="post-content" placeholder="What have you got to say?">
+               
 
-                </div>
-
-                <div class="form group">
-                  <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Post">Thought</button>
-                </div>
               </form>
                 <hr>
                 <div class="clearfix">
